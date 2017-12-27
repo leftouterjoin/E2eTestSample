@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+tasks.eclipse.dependsOn(cleanEclipse)
+
+sourceCompatibility = targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: 'latest.release'
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: 'latest.integration'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:'latest.integration'
+    compile group: 'junit', name: 'junit', version:'latest.release'
+    compile group: 'org.hamcrest', name: 'hamcrest-library', version:'latest.release'
+    compile group: 'ru.yandex.qatools.ashot', name: 'ashot', version:'latest.release'
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+tasks.withType(Test) {
+  systemProperties System.properties
+}
+
+/* for example.(note: proxy is Proxy is for DriverManager and not for browser.)
+./gradlew test
+./gradlew test -Dproxy=localhost:8080 --info
+./gradlew test -DserverName=leftouterjoin.outsystemscloud.com -Dproxy=localhost:8080 -DtargetBrowser=chrome,firefox,ie --info
+*/
