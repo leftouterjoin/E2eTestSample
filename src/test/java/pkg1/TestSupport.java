@@ -59,11 +59,11 @@ public class TestSupport {
 		if (poroxy == null || poroxy.equals("")) {
 			FirefoxDriverManager.getInstance().setup();
 			ChromeDriverManager.getInstance().setup();
-			InternetExplorerDriverManager.getInstance().setup();
+			InternetExplorerDriverManager.getInstance().arch32().setup();
 		} else {
 			FirefoxDriverManager.getInstance().proxy(poroxy).setup();
 			ChromeDriverManager.getInstance().proxy(poroxy).setup();
-			InternetExplorerDriverManager.getInstance().proxy(poroxy).setup();
+			InternetExplorerDriverManager.getInstance().arch32().proxy(poroxy).setup();
 		}
 	}
 

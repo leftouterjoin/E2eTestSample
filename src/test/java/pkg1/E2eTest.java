@@ -22,10 +22,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import pkg1.page.CommonElement;
-import pkg1.page.OrderHeader_OrderDetail_PopupEditor;
-import pkg1.page.OrderHeaderDetail;
-import pkg1.page.OrderHeaders;
 import pkg1.page.LoginPage;
+import pkg1.page.OrderHeaderDetail;
+import pkg1.page.OrderHeader_OrderDetail_PopupEditor;
+import pkg1.page.OrderHeaders;
 
 @RunWith(Parameterized.class)
 @FixMethodOrder (MethodSorters.NAME_ASCENDING)
@@ -85,9 +85,8 @@ public class E2eTest extends Application {
 	}
 
 	private void logout() {
-		newWebDriverWait().until(ExpectedConditions.elementToBeClickable(commonElement.loginInfo_username));
-		commonElement.loginInfo_username.click();
-		commonElement.logout.click();
+		newWebDriverWait().until(ExpectedConditions.elementToBeClickable(commonElement.login_Info_Logout));
+		commonElement.login_Info_Logout.click();
 	}
 
 	private void createANewOrderHeader(String orderNo) {
@@ -101,13 +100,15 @@ public class E2eTest extends Application {
 		newWebDriverWait().until(ExpectedConditions.visibilityOf(commonElement.feedback_Message_Text));
 		assertThat(commonElement.feedback_Message_Text.getText(), endsWith("was successfully created."));
 		commonElement.feedback_Message_Wrapper_Close.click();
-		newWebDriverWait().until(ExpectedConditions.stalenessOf(td.driver.findElement(By.className("ui-effects-wrapper"))));
 		// ■対象案件を検索する
+		newWebDriverWait().until(ExpectedConditions.elementToBeClickable(orderHeaders.searchInput));
 		orderHeaders.searchInput.sendKeys(orderNo);
 		orderHeaders.search.click();
 		// ▲検索結果に新規登録したデータが表示されていること
 		newWebDriverWait().until(
-				ExpectedConditions.textToBePresentInElement(orderHeaders.counter_Message, "1 record"));
+				ExpectedConditions.or(
+						ExpectedConditions.textToBePresentInElement(orderHeaders.counter_Message, "1 件"),
+						ExpectedConditions.textToBePresentInElement(orderHeaders.counter_Message, "1 record")));
 	}
 
 	private void createANewOrderDetail(String orderNo) {
@@ -132,7 +133,5 @@ public class E2eTest extends Application {
 		newWebDriverWait().until(ExpectedConditions.visibilityOf(commonElement.feedback_Message_Text));
 		assertThat(commonElement.feedback_Message_Text.getText(), equalTo("The order detail was successfully created."));
 		commonElement.feedback_Message_Wrapper_Close.click();
-		newWebDriverWait()
-				.until(ExpectedConditions.stalenessOf(td.driver.findElement(By.className("ui-effects-wrapper"))));
 	}
 }

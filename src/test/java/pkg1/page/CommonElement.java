@@ -4,10 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class CommonElement {
-	@FindBy(className = "LoginInfo_username")
-	public WebElement loginInfo_username;
-	@FindBy(linkText = "Logout")
-	public WebElement logout;
+	@FindBy(className = "Login_Info_Logout")
+	public WebElement login_Info_Logout;
 	@FindBy(css = "[data-test-id='Customers']")
 	public WebElement menuCustomers;
 	@FindBy(css = "[data-test-id='Products']")
