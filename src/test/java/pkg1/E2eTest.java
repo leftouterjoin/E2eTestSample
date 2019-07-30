@@ -1,11 +1,10 @@
 package pkg1;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -66,7 +65,7 @@ public class E2eTest extends Application {
 	public void testScenario__Normal_01() throws Exception {
 		System.out.println("testScenario__Normal_01");
 		// ■ログイン画面を表示する
-		td.driver.get("http://" + TestSupport.SERVER_NAME + "/SampleAppForE2ETest/");
+		td.driver.get("https://" + TestSupport.SERVER_NAME + "/SampleAppForE2ETest/");
 		// ■ログイン中の場合はログアウトする
 		if (!td.driver.getTitle().equals("Login"))
 			logout();
@@ -81,7 +80,7 @@ public class E2eTest extends Application {
 	}
 
 	private WebDriverWait newWebDriverWait() {
-		return (new WebDriverWait(td.driver, TestSupport.WAIT_TIME_SEC));
+		return (new WebDriverWait(td.driver, Duration.ofSeconds(TestSupport.WAIT_TIME_SEC)));
 	}
 
 	private void logout() {
@@ -98,7 +97,7 @@ public class E2eTest extends Application {
 		orderHeaderDetail.save.click();
 		// ▲正常終了メッセージが表示されること
 		newWebDriverWait().until(ExpectedConditions.visibilityOf(commonElement.feedback_Message_Text));
-		assertThat(commonElement.feedback_Message_Text.getText(), endsWith("was successfully created."));
+		Assertions.assertThat(commonElement.feedback_Message_Text.getText()).endsWith("was successfully created.");
 		commonElement.feedback_Message_Wrapper_Close.click();
 		// ■対象案件を検索する
 		newWebDriverWait().until(ExpectedConditions.elementToBeClickable(orderHeaders.searchInput));
@@ -131,7 +130,7 @@ public class E2eTest extends Application {
 		}
 		// ▲正常終了メッセージが表示されること
 		newWebDriverWait().until(ExpectedConditions.visibilityOf(commonElement.feedback_Message_Text));
-		assertThat(commonElement.feedback_Message_Text.getText(), equalTo("The order detail was successfully created."));
+		Assertions.assertThat(commonElement.feedback_Message_Text.getText()).isEqualTo("The order detail was successfully created.");
 		commonElement.feedback_Message_Wrapper_Close.click();
 	}
 }
