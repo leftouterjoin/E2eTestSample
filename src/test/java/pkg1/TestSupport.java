@@ -9,9 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestSupport {
 	public static final int WAIT_TIME_SEC = 20;
@@ -57,20 +55,20 @@ public class TestSupport {
 		String poroxy = System.getProperty("proxy");
 		System.out.println("proxy: " + poroxy);
 		if (poroxy == null || poroxy.equals("")) {
-			FirefoxDriverManager.getInstance().setup();
-			ChromeDriverManager.getInstance().setup();
-			InternetExplorerDriverManager.getInstance().arch32().setup();
+			WebDriverManager.firefoxdriver().setup();
+			WebDriverManager.chromedriver().setup();
+			WebDriverManager.iedriver().arch32().setup();
 		} else {
-			FirefoxDriverManager.getInstance().proxy(poroxy).setup();
-			ChromeDriverManager.getInstance().proxy(poroxy).setup();
-			InternetExplorerDriverManager.getInstance().arch32().proxy(poroxy).setup();
+			WebDriverManager.firefoxdriver().proxy(poroxy).setup();
+			WebDriverManager.chromedriver().proxy(poroxy).setup();
+			WebDriverManager.iedriver().arch32().proxy(poroxy).setup();
 		}
 	}
 
 	public static final WebDriver newWebDriver(Class<? extends WebDriver> clazz) {
 		WebDriver driver = null;
 		try {
-			driver = clazz.newInstance();
+			driver = clazz.getDeclaredConstructor().newInstance();
 			driver.manage().timeouts().implicitlyWait(WAIT_TIME_SEC, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
 		} catch (ReflectiveOperationException e) {

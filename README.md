@@ -11,7 +11,7 @@
 ## Precondition and Requirements.
 * Git for Windows is available
 * Gradle is available
-* JDK 1.7 or later is available
+* JDK 11 or later is available
 * Either chrome, firefox, or IE is available
 * Eclipse is available(option)
 * OutSystems Service Studio is available(option)
