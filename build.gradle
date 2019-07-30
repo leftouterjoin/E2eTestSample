@@ -10,12 +10,13 @@ repositories {
 }
 
 dependencies {
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: 'latest.release'
-    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: 'latest.integration'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:'latest.integration'
-    compile group: 'junit', name: 'junit', version:'latest.release'
-    compile group: 'org.hamcrest', name: 'hamcrest-library', version:'latest.release'
-    compile group: 'ru.yandex.qatools.ashot', name: 'ashot', version:'latest.release'
+    implementation 'ch.qos.logback:logback-classic:latest.release'
+    implementation 'io.github.bonigarcia:webdrivermanager:latest.release'
+    implementation 'org.seleniumhq.selenium:selenium-java:latest.release'
+    implementation 'junit:junit:latest.release'
+    implementation 'org.hamcrest:hamcrest-library:latest.release'
+    implementation 'ru.yandex.qatools.ashot:ashot:latest.release'
+    testImplementation 'org.assertj:assertj-core:latest.release'
 }
 
 compileJava.options.encoding = 'UTF-8'
